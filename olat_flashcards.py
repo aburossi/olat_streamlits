@@ -190,8 +190,7 @@ Um Lernkarteien für die Umwandlung in Drag-and-Drop-Fragen zu erstellen, beacht
 
 2. **Trennung zwischen Karten**:
    - Zwischen zwei Karten muss **eine leere Zeile** eingefügt werden, um die Karten klar voneinander zu trennen.
-
-3. Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
+   - Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
 
 #### Beispiel:
 ```text
