@@ -7,6 +7,7 @@ import zipfile
 # Sidebar with explanation
 st.sidebar.title("Flashcard Types Explanation")
 st.sidebar.markdown("""
+👉 Use this [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) to generate Vocabulary-Flashcards.
 **Single Questions**:
 - Each flashcard generates a separate question.
 - Inlinechoice: Provides multiple choice options for each question.
