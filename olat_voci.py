@@ -113,8 +113,8 @@ def generate_fib_group(groups, group_size):
 st.title("Flashcards Formatter")
 
 # File uploader and text area for input
-uploaded_file = st.file_uploader("Upload a .txt file with flashcards. Separate flashcards with an empty line.", type=["txt"])
-text_input = st.text_area("Or paste your flashcards here. Separate flashcards with an empty line.", height=200)
+uploaded_file = st.file_uploader("Upload a .txt file with flashcards. Separate flashcards with an empty line. Use this [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) to generate Vocabulary-Flashcards.", type=["txt"])
+text_input = st.text_area("Or paste your flashcards here. Separate flashcards with an empty line. Use this [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) to generate Vocabulary-Flashcards.", height=200)
 
 # Checkboxes for question types
 generate_single = st.checkbox("Generate single questions")
