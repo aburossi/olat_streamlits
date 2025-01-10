@@ -191,6 +191,8 @@ Um Lernkarteien für die Umwandlung in Drag-and-Drop-Fragen zu erstellen, beacht
 2. **Trennung zwischen Karten**:
    - Zwischen zwei Karten muss **eine leere Zeile** eingefügt werden, um die Karten klar voneinander zu trennen.
 
+3. Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
+
 #### Beispiel:
 ```text
 Politische Rechte und Pflichten
@@ -210,7 +212,7 @@ Die Regierungsformen
 
    Dieses Tool unterstützt Sie dabei, Lernkarteien in einem kompatiblen Format zu generieren und sorgt für eine einheitliche Struktur.
    
-    Hier ein weiteres Beispeil um Lernkarteien in verschiedenen Lernkarteien-Formate (Definitionen, Konzepte, Vokabel, usw.) zu erstellen: [Custom-GPT Lernkarteien](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) erstellen.
+   Hier ein weiteres Beispeil um Lernkarteien in verschiedenen Lernkarteien-Formate (Definitionen, Konzepte, Vokabel, usw.) zu erstellen: [Custom-GPT Lernkarteien](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) erstellen.
 
 
    Oder generieren Sie einfach Lernkarteien mit einer KI.
