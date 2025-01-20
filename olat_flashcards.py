@@ -179,27 +179,27 @@ with st.expander("Erklärung der didaktischen Idee hinter dieser Methode"):
 
 # Erklärung zur Formatierung der Lernkarteien
 format_text = """
-### Anleitung zur Formatierung der Lernkarteien
-
-Um Lernkarteien für die Umwandlung in Drag-and-Drop-Fragen zu erstellen, beachten Sie bitte die folgende Struktur:
-
-1. **Format einer Karte**:
-   - **Vorderseite**: Der Begriff oder Titel, der zugeordnet werden soll.
-   - **Rückseite**: Mindestens eine Erklärung oder ein Konzept. Zusätzliche Zeilen für Details, Beispiele oder Ziele sind möglich.
-   - Zwischen Vorder- und Rückseite muss ein **Absatz** eingefügt werden.
-
-2. **Trennung zwischen Karten**:
-   - Zwischen zwei Karten muss **eine leere Zeile** eingefügt werden, um die Karten klar voneinander zu trennen.
-   - Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
-
-#### Beispiel:
-```text
-Politische Rechte und Pflichten
-📌 Beziehen sich auf die Befugnisse und Verantwortlichkeiten der Bürger in einem Staat, wie das Wahlrecht und Steuerpflicht.
-🔍 Ziel ist es, Bürgerbeteiligung zu fördern und eine gerechte Gesellschaft zu gewährleisten.
-👉 Jeder Schweizer Bürger ist verpflichtet, Steuern zu zahlen und hat das Recht, an Wahlen und Abstimmungen teilzunehmen.
-
-Die Regierungsformen
-📌 Sie beschreiben, wie die Staatsgewalt ausgeübt wird und umfassen Diktatur, Demokratie unter anderen.
-🔍 Wesentlich ist, wer die Macht hat und wie diese kontrolliert wird.
-👉 In einer Demokratie wie der Schweiz haben die Bürger das Recht, ihre Regierung durch Wahlen zu wählen.
+    ### Anleitung zur Formatierung der Lernkarteien
+    
+    Um Lernkarteien für die Umwandlung in Drag-and-Drop-Fragen zu erstellen, beachten Sie bitte die folgende Struktur:
+    
+    1. **Format einer Karte**:
+       - **Vorderseite**: Der Begriff oder Titel, der zugeordnet werden soll.
+       - **Rückseite**: Mindestens eine Erklärung oder ein Konzept. Zusätzliche Zeilen für Details, Beispiele oder Ziele sind möglich.
+       - Zwischen Vorder- und Rückseite muss ein **Absatz** eingefügt werden.
+    
+    2. **Trennung zwischen Karten**:
+       - Zwischen zwei Karten muss **eine leere Zeile** eingefügt werden, um die Karten klar voneinander zu trennen.
+       - Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
+    
+    #### Beispiel:
+    ```text
+    Politische Rechte und Pflichten
+    📌 Beziehen sich auf die Befugnisse und Verantwortlichkeiten der Bürger in einem Staat, wie das Wahlrecht und Steuerpflicht.
+    🔍 Ziel ist es, Bürgerbeteiligung zu fördern und eine gerechte Gesellschaft zu gewährleisten.
+    👉 Jeder Schweizer Bürger ist verpflichtet, Steuern zu zahlen und hat das Recht, an Wahlen und Abstimmungen teilzunehmen.
+    
+    Die Regierungsformen
+    📌 Sie beschreiben, wie die Staatsgewalt ausgeübt wird und umfassen Diktatur, Demokratie unter anderen.
+    🔍 Wesentlich ist, wer die Macht hat und wie diese kontrolliert wird.
+    👉 In einer Demokratie wie der Schweiz haben die Bürger das Recht, ihre Regierung durch Wahlen zu wählen.
