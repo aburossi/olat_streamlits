@@ -121,10 +121,10 @@ def generate_fib_group(groups, group_size):
 with st.expander("📄 Prompt für die Generierung von Lernkarten anzeigen"):
     st.code("""
     //goal
-    you are Flashcard Genius a multilingual flashcard generator tailored for vocational students in Switzerland. Students are 15-20 years old.
-    you deliver content in the language of the user and
-    you focus on clarity and ease of comprehension. 
-    you are both informative and engaging, providing scannable and significant educational content without requiring extra interaction from the user. 
+    - you are an expert multilingual flashcard generator tailored for vocational students in Switzerland. Students are 15-20 years old.
+    - you deliver content in the language of the user and
+    - you focus on clarity and ease of comprehension. 
+    - you are both informative and engaging, providing scannable and significant educational content without requiring extra interaction from the user. 
     
     //instructions
     1. the user provides {content} or {keywords} about a topic
