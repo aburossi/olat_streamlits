@@ -4,19 +4,26 @@ import math
 from io import StringIO, BytesIO
 import zipfile
 
-# Sidebar with explanation
-st.sidebar.title("Flashcard Types Explanation")
-st.sidebar.markdown("""
-👉 Use this [Custom-GPT](https://chatgpt.com/g/g-678e4d702d6881919ca1166aaf958839-lernkarteien-voci) to generate Vocabulary-Flashcards.
-**Single Questions**:
-- Each flashcard generates a separate question.
-- Inlinechoice: Provides multiple choice options for each question.
-- FIB: Fill-in-the-blank style questions with the correct answer.
+# Seiten-Titel mit Emojis
+st.title("🎓 OLAT Voci-Lernkarteien Converter 📚")
 
-**Grouped Questions**:
-- Flashcards are grouped, and each group generates a set of questions.
-- Inlinechoice: Multiple choice questions for grouped flashcards.
-- FIB: Fill-in-the-blank questions for grouped flashcards.
+# Sidebar mit Erklärungen
+st.sidebar.title("Erklärung der Lernkarten-Typen")
+st.sidebar.markdown("""
+👉 Verwende dieses [Custom-GPT](https://chatgpt.com/g/g-678e4d702d6881919ca1166aaf958839-lernkarteien-voci) zur Generierung von Vokabel-Lernkarten.
+**Einzelne Fragen**:
+- Jede Lernkarte generiert eine separate Frage.
+- Inlinechoice: Bietet Multiple-Choice-Optionen für jede Frage.
+- FIB: Lückentext-Fragen mit der richtigen Antwort.
+
+**Gruppierte Fragen**:
+- Lernkarten sind gruppiert, und jede Gruppe generiert ein Set von Fragen.
+- Inlinechoice: Multiple-Choice-Fragen für gruppierte Lernkarten.
+- FIB: Lückentext-Fragen für gruppierte Lernkarten.
+
+> **Hinweis:** Nur die Lernkarteien, die mit dem Bot erstellt wurden, funktionieren. Es gibt zwei Formate:
+> - **Individuelle Formate**: Jede Karte wird einzeln behandelt.
+> - **Intergruppierte Formate**: Karten werden in Gruppen verarbeitet, was eine zusammenhängende Bearbeitung ermöglicht.
 """)
 
 def read_flashcards(content):
@@ -110,21 +117,35 @@ def generate_fib_group(groups, group_size):
         output += "\n"
     return output
 
-# Main Title
-st.title("Flashcards Formatter")
+# Dropdown für den Prompt
+with st.expander("📄 Prompt für die Generierung von Lernkarten anzeigen"):
+    st.code("""
+    Schreibe bitte Vokabel-Lernkarten im folgenden Format:
+    Jede Karte besteht aus zwei Zeilen, getrennt durch einen Zeilenumbruch.
+    Die erste Zeile enthält das Wort auf Deutsch (Rückseite).
+    Die zweite Zeile enthält die Übersetzung oder Definition auf Englisch (Vorderseite).
+    
+    Beispiel:
+    Hund
+    Dog
 
-# File uploader and text area for input
-uploaded_file = st.file_uploader("Upload a .txt file with flashcards. Separate flashcards with an empty line. Use this [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) to generate Vocabulary-Flashcards.", type=["txt"])
-text_input = st.text_area("Or paste your flashcards here. Separate flashcards with an empty line. Use this [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) to generate Vocabulary-Flashcards.", height=200)
+    Katze
+    Cat
+    """, language='python')
+    st.markdown("Du kannst den obigen Prompt kopieren, um eigene Lernkarten mit dem Bot zu generieren.")
 
-# Checkboxes for question types
-generate_single = st.checkbox("Generate single questions")
-generate_group = st.checkbox("Generate grouped questions")
+# Dateiupload und Textbereich für Eingaben
+uploaded_file = st.file_uploader("Lade eine .txt-Datei mit Lernkarten hoch. Trenne die Lernkarten mit einer Leerzeile. Verwende dieses [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) zur Generierung von Vokabel-Lernkarten.", type=["txt"])
+text_input = st.text_area("Oder füge deine Lernkarten hier ein. Trenne die Lernkarten mit einer Leerzeile. Verwende dieses [Custom-GPT](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) zur Generierung von Vokabel-Lernkarten.", height=200)
 
-# Slider for group size (shown only if grouped questions are selected)
-group_size = st.slider("Select group size", min_value=2, max_value=10, value=2) if generate_group else None
+# Checkboxen für Fragetypen
+generate_single = st.checkbox("Einzelne Fragen generieren")
+generate_group = st.checkbox("Gruppierte Fragen generieren")
 
-if st.button("Generate Flashcards"):
+# Slider für Gruppengröße (nur sichtbar, wenn gruppierte Fragen ausgewählt sind)
+group_size = st.slider("Wähle die Gruppengröße", min_value=2, max_value=10, value=2) if generate_group else None
+
+if st.button("Lernkarten generieren"):
     if uploaded_file or text_input:
         if uploaded_file:
             content = StringIO(uploaded_file.getvalue().decode("utf-8")).read()
@@ -133,9 +154,9 @@ if st.button("Generate Flashcards"):
         
         flashcards = read_flashcards(content)
         if flashcards:
-            st.success(f"Loaded {len(flashcards)} flashcards.")
+            st.success(f"{len(flashcards)} Lernkarten erfolgreich geladen.")
             
-            # Store outputs in a dictionary for easy access
+            # Ergebnisse in einem Wörterbuch speichern
             outputs = {}
 
             if generate_single:
@@ -147,16 +168,16 @@ if st.button("Generate Flashcards"):
                 outputs["inline_group.txt"] = generate_inline_group(groups, group_size)
                 outputs["fib_group.txt"] = generate_fib_group(groups, group_size)
 
-            # Show individual download buttons for each file
+            # Individuelle Download-Buttons für jede Datei anzeigen
             for file_name, content in outputs.items():
                 st.download_button(
-                    label=f"Download {file_name}",
+                    label=f"{file_name} herunterladen",
                     data=content,
                     file_name=file_name,
                     mime="text/plain"
                 )
 
-            # Create a zip file for bulk download
+            # Zip-Datei für den Massen-Download erstellen
             zip_buffer = BytesIO()
             with zipfile.ZipFile(zip_buffer, "w") as zf:
                 for file_name, content in outputs.items():
@@ -164,12 +185,12 @@ if st.button("Generate Flashcards"):
             zip_buffer.seek(0)
 
             st.download_button(
-                label="Download All Files as ZIP",
+                label="Alle Dateien als ZIP herunterladen",
                 data=zip_buffer,
                 file_name="flashcards_outputs.zip",
                 mime="application/zip"
             )
         else:
-            st.warning("No valid flashcards found. Please check your input format.")
+            st.warning("Keine gültigen Lernkarten gefunden. Bitte überprüfe das Eingabeformat.")
     else:
-        st.warning("Please upload a file or paste flashcards.")
+        st.warning("Bitte lade eine Datei hoch oder füge Lernkarten ein.")
