@@ -179,27 +179,157 @@ with st.expander("Erklärung der didaktischen Idee hinter dieser Methode"):
 
 # Erklärung zur Formatierung der Lernkarteien
 format_text = """
-    ### Anleitung zur Formatierung der Lernkarteien
-    
-    Um Lernkarteien für die Umwandlung in Drag-and-Drop-Fragen zu erstellen, beachten Sie bitte die folgende Struktur:
-    
-    1. **Format einer Karte**:
-       - **Vorderseite**: Der Begriff oder Titel, der zugeordnet werden soll.
-       - **Rückseite**: Mindestens eine Erklärung oder ein Konzept. Zusätzliche Zeilen für Details, Beispiele oder Ziele sind möglich.
-       - Zwischen Vorder- und Rückseite muss ein **Absatz** eingefügt werden.
-    
-    2. **Trennung zwischen Karten**:
-       - Zwischen zwei Karten muss **eine leere Zeile** eingefügt werden, um die Karten klar voneinander zu trennen.
-       - Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
-    
-    #### Beispiel:
-    ```text
-    Politische Rechte und Pflichten
-    📌 Beziehen sich auf die Befugnisse und Verantwortlichkeiten der Bürger in einem Staat, wie das Wahlrecht und Steuerpflicht.
-    🔍 Ziel ist es, Bürgerbeteiligung zu fördern und eine gerechte Gesellschaft zu gewährleisten.
-    👉 Jeder Schweizer Bürger ist verpflichtet, Steuern zu zahlen und hat das Recht, an Wahlen und Abstimmungen teilzunehmen.
-    
-    Die Regierungsformen
-    📌 Sie beschreiben, wie die Staatsgewalt ausgeübt wird und umfassen Diktatur, Demokratie unter anderen.
-    🔍 Wesentlich ist, wer die Macht hat und wie diese kontrolliert wird.
-    👉 In einer Demokratie wie der Schweiz haben die Bürger das Recht, ihre Regierung durch Wahlen zu wählen.
+### Anleitung zur Formatierung der Lernkarteien
+
+Um Lernkarteien für die Umwandlung in Drag-and-Drop-Fragen zu erstellen, beachten Sie bitte die folgende Struktur:
+
+1. **Format einer Karte**:
+   - **Vorderseite**: Der Begriff oder Titel, der zugeordnet werden soll.
+   - **Rückseite**: Mindestens eine Erklärung oder ein Konzept. Zusätzliche Zeilen für Details, Beispiele oder Ziele sind möglich.
+   - Zwischen Vorder- und Rückseite muss ein **Absatz** eingefügt werden.
+
+2. **Trennung zwischen Karten**:
+   - Zwischen zwei Karten muss **eine leere Zeile** eingefügt werden, um die Karten klar voneinander zu trennen.
+   - Für **Lückentextfragen zu Voci**, verwenden Sie bitte die folgende Konverter: [OLAT-Voci](https://olat-voci.streamlit.app/).   
+
+#### Beispiel:
+```text
+Politische Rechte und Pflichten
+📌 Beziehen sich auf die Befugnisse und Verantwortlichkeiten der Bürger in einem Staat, wie das Wahlrecht und Steuerpflicht.
+🔍 Ziel ist es, Bürgerbeteiligung zu fördern und eine gerechte Gesellschaft zu gewährleisten.
+👉 Jeder Schweizer Bürger ist verpflichtet, Steuern zu zahlen und hat das Recht, an Wahlen und Abstimmungen teilzunehmen.
+
+Die Regierungsformen
+📌 Sie beschreiben, wie die Staatsgewalt ausgeübt wird und umfassen Diktatur, Demokratie unter anderen.
+🔍 Wesentlich ist, wer die Macht hat und wie diese kontrolliert wird.
+👉 In einer Demokratie wie der Schweiz haben die Bürger das Recht, ihre Regierung durch Wahlen zu wählen.
+```
+
+3. **Erstellungshilfe für Lernkarteien**:
+   Wenn Sie Hilfe bei der Erstellung der Lernkarteien benötigen, nutzen Sie das folgende Tool:
+   [Flashcard Generator – Custom GPT](https://chatgpt.com/g/g-dGooBvtzu-flashcard-genius). 
+
+   Dieses Tool unterstützt Sie dabei, Lernkarteien in einem kompatiblen Format zu generieren und sorgt für eine einheitliche Struktur.
+   
+   Hier ein weiteres Beispeil um Lernkarteien in verschiedenen Lernkarteien-Formate (Definitionen, Konzepte, Vokabel, usw.) zu erstellen: [Custom-GPT Lernkarteien](https://chatgpt.com/g/g-675ea28843a4819188dc512c1966a152-lernkarteien) erstellen.
+
+
+   Oder generieren Sie einfach Lernkarteien mit einer KI.
+   
+   Beispielprompt:
+```
+Erstelle Lernkarteien zu [Thema] im folgenden Format:
+1. Jeder Karte hat eine Vorderseite mit einem Titel und eine Rückseite.
+2. Zwischen Vorder- und Rückseite sollte ein Absatz sein.
+3. Zwischen den Karten eine leere Zeile.
+
+Beispiel:
+Front
+Back
+
+Front
+Back
+```
+"""
+
+# Streamlit-Abschnitt zur Formatierungserklärung
+with st.expander("Anleitung zur Erstellung von Lernkarteien und Link zur Generierung"):
+    st.markdown(format_text)
+
+
+# Text Input
+input_text = st.text_area("Fügen Sie Ihre Flashcards unten ein:", height=400)
+
+# Select number of correct pairs
+st.sidebar.header("Einstellungen für die Fragen")
+n_correct = st.sidebar.slider(
+    "Anzahl der korrekten Paare pro Frage",
+    min_value=1,
+    max_value=6,
+    value=4,
+    step=1,
+    help="Wählen Sie, wie viele korrekte Paare in jeder Frage enthalten sein sollen. Die Gesamtanzahl der Optionen bleibt bei 8."
+)
+
+# Generate Button
+if st.button("Generieren"):
+    if not input_text.strip():
+        st.error("Bitte fügen Sie die Flashcards-Daten ein.")
+    else:
+        flashcards, max_back_lines = parse_flashcards(input_text)
+
+        if not flashcards:
+            st.error("Keine gültigen Flashcards gefunden. Stellen Sie sicher, dass jede Flashcard mindestens eine Vorderseite und eine Rückseite hat.")
+        else:
+            # Check if all flashcards have the same number of back lines
+            is_uniform, back_line_count = check_uniform_back_lines(flashcards)
+
+            selected_lines = list(range(back_line_count))  # Default to all lines
+            if is_uniform:
+                st.success(f"Alle Flashcards haben {back_line_count} Rückseitenzeile(n).")
+                # Let user select which lines to include
+                st.sidebar.header("Rückseitenzeilen auswählen")
+                selected_lines = []
+                for i in range(back_line_count):
+                    if st.sidebar.checkbox(f"Zeile {i+1}", value=True):
+                        selected_lines.append(i)
+                if not selected_lines:
+                    st.error("Bitte wählen Sie mindestens eine Rückseitenzeile aus.")
+            else:
+                st.warning("Flashcards haben unterschiedliche Anzahlen von Rückseitenzeilen. Es werden nur die gemeinsamen Rückseitenzeilen verarbeitet.")
+                # Find minimum number of back lines
+                min_back_lines = min(len(card["clean_backs"]) for card in flashcards)
+                st.info(f"Es werden die ersten {min_back_lines} Rückseitenzeilen jeder Flashcard verarbeitet.")
+                selected_lines = list(range(min_back_lines))
+
+            if selected_lines:
+                # Default title if not provided
+                question_title = custom_title if custom_title.strip() else "Lernkarteien"
+
+                # Generate questions based on selected lines and number of correct pairs
+                all_questions = []
+                for line_idx in selected_lines:
+                    questions = generate_questions(
+                        flashcards,
+                        correct_line_index=line_idx,
+                        title=question_title,
+                        n_correct=n_correct  # Pass the selected number of correct pairs
+                    )
+                    all_questions.extend(questions)
+
+                if not all_questions:
+                    st.error("Nicht genügend Flashcards, um Fragen zu generieren. Stellen Sie sicher, dass Sie mindestens 8 Flashcards haben und die Anzahl der korrekten Paare passt.")
+                else:
+                    output = format_questions(all_questions)
+
+                    # JSON Output
+                    with st.expander("Rohdaten der Flashcards anzeigen"):
+                        st.json(flashcards)
+
+                    # Display outputs side by side
+                    # Separate outputs by lines
+                    outputs = {}
+                    for line_idx in selected_lines:
+                        line_title = f"Zeile {line_idx + 1}"
+                        questions = generate_questions(
+                            flashcards,
+                            correct_line_index=line_idx,
+                            title=question_title,
+                            n_correct=n_correct
+                        )
+                        formatted_output = format_questions(questions)
+                        outputs[line_title] = formatted_output
+
+                    # Display in separate columns
+                    num_columns = len(outputs)
+                    cols = st.columns(num_columns)
+
+                    for idx, (line_title, formatted_output) in enumerate(outputs.items()):
+                        with cols[idx]:
+                            st.subheader(f"Output ({line_title})")
+                            text_area_id = f"text_area_{idx}"
+                            st.text_area(f"Formatierte Ausgabe - {line_title}", value=formatted_output, height=300, key=text_area_id)
+                            
+                            # Download Button
+                            download_filename = f"{line_title.lower().replace(' ', '_')}_output.txt"
+                            st.download_button(f"Download {line_title}", formatted_output, file_name=download_filename)
