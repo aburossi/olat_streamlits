@@ -279,8 +279,15 @@ with st.expander("Anleitung zur Erstellung von Lernkarteien und Link zur Generie
     st.markdown(format_text)
 
 
+# Select Input Format
+input_format = st.radio(
+    "Wählen Sie das Eingabeformat Ihrer Lernkarteien:",
+    ('Plain Text', 'JSON'),
+    help="Wählen Sie 'Plain Text' für das Standardformat (Vorder-/Rückseite durch Zeilenumbruch, Karten durch Leerzeile getrennt) oder 'JSON' für das Format `[{'question': '...', 'answer': '...'}]`."
+)
+
 # Text Input
-input_text = st.text_area("Fügen Sie Ihre Flashcards unten ein:", height=400)
+input_text = st.text_area(f"Fügen Sie Ihre Flashcards im '{input_format}'-Format unten ein:", height=400)
 
 # Select number of correct pairs
 st.sidebar.header("Einstellungen für die Fragen")
